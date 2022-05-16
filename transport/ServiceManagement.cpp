@@ -46,9 +46,7 @@
 #include <android-base/strings.h>
 #include <hwbinder/IPCThreadState.h>
 #include <hwbinder/Parcel.h>
-#if !defined(__ANDROID_RECOVERY__) && defined(__ANDROID__)
 #include <vndksupport/linker.h>
-#endif
 
 #include <android/hidl/manager/1.2/BnHwServiceManager.h>
 #include <android/hidl/manager/1.2/BpHwServiceManager.h>
@@ -352,9 +350,7 @@ struct PassthroughServiceManager : IServiceManager1_1 {
                 if (path == HAL_LIBRARY_PATH_SYSTEM) {
                     handle = dlopen(fullPath.c_str(), dlMode);
                 } else {
-#if !defined(__ANDROID_RECOVERY__) && defined(__ANDROID__)
                     handle = android_load_sphal_library(fullPath.c_str(), dlMode);
-#endif
                 }
 
                 if (handle == nullptr) {
